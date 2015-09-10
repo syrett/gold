@@ -8,6 +8,7 @@ import (
 )
 
 // 这是master后改
+// 这是master 2 后改
 func main() {
 	models.MgoDB = lib.NewMongoDB(beego.AppConfig.String("mongo::dial_url"))
 	err := models.MgoDB.Connection()
