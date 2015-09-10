@@ -7,8 +7,6 @@ import (
 	_ "github.com/syrett/gold/routers"
 )
 
-// 这是master后改
-// 这是dev 二次先改
 func main() {
 	models.MgoDB = lib.NewMongoDB(beego.AppConfig.String("mongo::dial_url"))
 	err := models.MgoDB.Connection()
