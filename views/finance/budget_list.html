@@ -1,0 +1,36 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>预算</title>
+    <meta name="author" content="liyouyou">
+  </head>
+
+  <body>
+    <h1>预算</h1>
+
+    
+    <table border="1">
+      <tr>
+        <td>大类别</td>
+        <td>小类别</td>        
+        <td>预算</td>
+      </tr>
+      <{range $index,$budgetBigSort := .BudgetList }>
+        <tr>
+          <td><label><{$budgetBigSort.SortName}></label></td>
+          <td></td>          
+          <td><label><{$budgetBigSort.BudgetNum}></label></td>
+        </tr>
+        <{range $index,$budgetSmallSort := $budgetBigSort.BudgetSmallSortList }>
+        <tr>
+          <td></td>                      
+          <td><label><{$budgetSmallSort.SortName}></label></td>
+          <td><label><{$budgetSmallSort.BudgetNum}></label></td>
+        </tr>          
+        <{end}>
+    <{end}>
+    </table>    
+    
+    <hr>
+  </body>
+</html>

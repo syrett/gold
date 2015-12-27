@@ -3,7 +3,7 @@ package finance
 /*-------------------------------------------------------------------
 * @copyright 2015 有量(上海)信息技术有限公司
 * @author liyouyou <youyou.li78@gmail.com>
-#Time-stamp: <liyouyou 2015-08-24 17:24:16>
+#Time-stamp: <liyouyou 2015-11-18 21:39:25>
 * @doc
 * expense.go
 * @end
@@ -18,5 +18,3 @@ import (
 type Expense struct {
 	controllers.Finance
 }
-
-func (this )

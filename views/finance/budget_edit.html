@@ -1,0 +1,21 @@
+<html>
+  <form action="save" method="post">
+    <input type="text" name="year" value="2016" type="hidden" >
+    <table>
+      <tr>
+        <td>类别</td>
+        <td>预算</td>
+      </tr>
+      <{ range $index,$budgetEditData := .BudgetEditDataList }>
+        <{ $bigSortName := $budgetEditData.BigSortName }>
+        <{ range $index,$smallSort := $budgetEditData.SmallSortList }>
+          <tr>
+            <td><input type="text" value="<{$bigSortName}>--<{$smallSort.SortName}>"></td>
+            <td><input type="hidden" name="sort_id" value="<{$smallSort.Sid}>" ><input type="text" name="budget"></td>
+          </tr>
+       <{end}>        
+    <{end}>
+    </table>
+    <button type="submit">保存</button>
+      </form>
+</html>

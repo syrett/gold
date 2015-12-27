@@ -3,7 +3,7 @@ package models
 /*-------------------------------------------------------------------
 * @copyright 2015 有量(上海)信息技术有限公司
 * @author liyouyou <youyou.li78@gmail.com>
-#Time-stamp: <liyouyou 2015-08-17 09:30:18>
+#Time-stamp: <2015-12-21 23:47:03>
 * @doc
 * 支出
 * @end
@@ -15,13 +15,17 @@ import (
 	"log"
 	"time"
 
+	"github.com/syrett/gold/lib"
 	"github.com/tealeg/xlsx"
 	"gopkg.in/mgo.v2/bson"
 )
 
 type Expense struct {
+	ExpenseId  string
 	BigSort    string //支出大类
 	SmallSort  string //支出小类
+	Bid        string //支出大类
+	Sid        string //支出小类
 	Account    string //账号
 	Project    string //项目
 	Merchant   string //商家
@@ -44,6 +48,7 @@ func (ex *Expense) DecodeAndSave(sheet *xlsx.Sheet) {
 	}
 	for k, row := range sheet.Rows {
 		if k > 0 {
+
 			row_ex := &Expense{}
 			for k, cell := range row.Cells {
 				fmt.Printf("cell:%v, %s\n", k, cell.String())
@@ -79,7 +84,13 @@ func (ex *Expense) DecodeAndSave(sheet *xlsx.Sheet) {
 
 			}
 			log.Printf("row ex:%+v\n", row_ex)
+			bigId, _ := ObBigSort.Save(row_ex.BigSort)
+			smallId, _ := ObSmallSort.Save(bigId, row_ex.SmallSort)
+			row_ex.Bid = bigId
+			row_ex.Sid = smallId
+			row_ex.ExpenseId = lib.GrandStr(16)
 			c.Insert(row_ex)
+
 		}
 
 	}

@@ -13,6 +13,6 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	models.XlsxDecode("/Users/liyouyou/go/src/github.com/syrett/gold/xls/wacai.xlsx")
+	//	models.XlsxDecode("/Users/liyouyou/go/src/github.com/syrett/gold/xls/wacai.xlsx")
 	beego.Run()
 }
