@@ -2,7 +2,7 @@ package models
 
 /*-------------------------------------------------------------------
 * @author liyouyou <youyou.li78@gmail.com>
-#Time-stamp: <2015-12-23 22:50:07>
+#Time-stamp: <2015-12-28 00:06:10>
 * @doc
 * budget.go
 * @end
@@ -26,20 +26,19 @@ type Budget struct {
 	BudgetNum int64         `bson:"budget"`
 }
 
-func (b *Budget) Save(year int, sort_type string, year_budget []Budget) (err error) {
+func (b *Budget) Save(year int, year_budget []Budget) (err error) {
 	s, _ := MgoDB.GetSession()
 	defer s.Close()
 	c := s.DB(MgoDbName).C(TBuget)
 
-	c.RemoveAll(bson.M{"year": year, "sorttype": sort_type})
+	c.RemoveAll(bson.M{"year": year})
 	for _, budget := range year_budget {
 		budget.Year = year
-		budget.SortType = sort_type
 		budget.BudgetId = lib.GrandStr(16)
 		err = c.Insert(budget)
 		if err != nil {
 			log.Printf("[ERROR] budget save failed:%v, year:%v\n", err, year)
-			c.RemoveAll(bson.M{"year": year, "sorttype": sort_type})
+			c.RemoveAll(bson.M{"year": year})
 			return
 		}
 	}

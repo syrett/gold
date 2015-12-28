@@ -1,21 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
-  <form action="save" method="post">
-    <input type="text" name="year" value="2016" type="hidden" >
-    <table>
+  <head>
+    <title>预算编辑</title>
+    <meta name="author" content="liyouyou">
+  </head>
+
+  <body>
+    <h1>预算编辑</h1>
+
+    <form action="save" method="POST" >
+    <input type="hidden" name="year" value="2016" />      
+    <table border="1">
       <tr>
-        <td>类别</td>
+        <td>大类别</td>
+        <td>小类别</td>        
         <td>预算</td>
       </tr>
-      <{ range $index,$budgetEditData := .BudgetEditDataList }>
-        <{ $bigSortName := $budgetEditData.BigSortName }>
-        <{ range $index,$smallSort := $budgetEditData.SmallSortList }>
-          <tr>
-            <td><input type="text" value="<{$bigSortName}>--<{$smallSort.SortName}>"></td>
-            <td><input type="hidden" name="sort_id" value="<{$smallSort.Sid}>" ><input type="text" name="budget"></td>
-          </tr>
-       <{end}>        
+      <{range $index,$budgetBigSort := .BudgetList }>
+        <tr>
+          <td><label><{$budgetBigSort.SortName}></label></td>
+          <td></td>          
+          <td><input type="hidden" name="bid" value="<{$budgetBigSort.Bid}>" />
+              <input type="text" name="b_budgetnum" value="<{$budgetBigSort.BudgetNum}>" /></td>
+        </tr>
+        <{range $index,$budgetSmallSort := $budgetBigSort.BudgetSmallSortList }>
+        <tr>
+          <td></td>                      
+          <td><label><{$budgetSmallSort.SortName}></label></td>
+          <td><input type="hidden" name="sid" value="<{$budgetSmallSort.Sid}>" />
+              <input type="text" name="s_budgetnum" value="<{$budgetSmallSort.BudgetNum}>" /></td>
+        </tr>          
+        <{end}>
     <{end}>
     </table>
-    <button type="submit">保存</button>
-      </form>
+    <button type="submit" > 提交 </button>
+    </form>
+    <hr>
+  </body>
 </html>
